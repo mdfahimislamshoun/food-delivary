@@ -73,9 +73,7 @@ const Home = () => {
              <button className="text-xl btn btn-prymary ">show All Product</button> </Link> 
              </div>     
             </div>
-            <Healthy></Healthy>
             <Services></Services>
-            <AddProduct></AddProduct>
 
 
         </div>

@@ -1,18 +1,20 @@
-import { useContext } from "react";
+
 import { AiFillGoogleCircle } from "react-icons/ai";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Swal from "sweetalert2";
-import { AuthContext } from "../provider/AuthProvider";
 import { Helmet } from "react-helmet";
+import { useContext } from "react";
+import { AuthContext } from "../provider/AuthProvider";
+
 
 
 
 const SignIn = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const { userSignIn, signInWithGoogle,  logOut } = useContext(AuthContext);
+const{userSignIn,signInWithGoogle}=useContext(AuthContext)
     const handelSignIn = (e) => {
         e.preventDefault();
         const email = e.target.email.value;
@@ -87,7 +89,6 @@ const SignIn = () => {
 
             .catch((error) => {
                 console.error(error);
-                logOut(error);
                 if (error) {
                     return Swal.fire({
                         position: 'center',

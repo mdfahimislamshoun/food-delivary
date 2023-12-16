@@ -4,9 +4,11 @@ import { AuthContext } from "../provider/AuthProvider";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Swal from "sweetalert2";
+import UseAxios from "../assets/hooks/UseAxios";
 
 const SignUp = () => {
   const { createUser,logOut } = useContext(AuthContext);
+const axiosUrl=UseAxios();
 
   const handelSignUp = (e) => {
     e.preventDefault();
@@ -14,6 +16,7 @@ const SignUp = () => {
     const email = e.target.email.value;
     const password = e.target.password.value;
     console.log(name, email, password);
+    const userData={name, email, password}
 
     if (password.length < 6) {
       return toast.error(
@@ -78,6 +81,7 @@ const SignUp = () => {
 
     createUser(email, password)
       .then((result) => {
+        axiosUrl.post("/user", userData)
         logOut(result)
         if (result) {
           return Swal.fire({

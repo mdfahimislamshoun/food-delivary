@@ -1,24 +1,29 @@
 import { useQuery } from "@tanstack/react-query";
 import UseAxios from "../assets/hooks/UseAxios";
+import { NavLink } from "react-router-dom";
 
 
 const Navbar = () => {
-const axiosUrl=UseAxios();
+    const axiosUrl = UseAxios();
 
 
-const { data: order = [], refetch } = useQuery({
-    queryKey: ["order"],
-    queryFn: async () => {
-        refetch();
-        const res = await axiosUrl.get("/order");
-        return res.data;
-    },
-});
-const handelRefetch=()=>{
+    const { data: order = [], refetch } = useQuery({
+        queryKey: ["order"],
+        queryFn: async () => {
+            const res = await axiosUrl.get("/order");
+            return res.data;
+        },
+    });
+
+    const closeDrawer = () => {
+        // Get the checkbox and set its checked property to false
+        const drawerCheckbox = document.getElementById("my-drawer-4");
+        if (drawerCheckbox) {
+            drawerCheckbox.checked = false;
+        }
+    };
+
     refetch()
-}
-
-
     return (
         <div>
             <div className="navbar  bg-white">
@@ -28,28 +33,26 @@ const handelRefetch=()=>{
                 <div className="flex-none">
                     <div className="navbar-center hidden lg:flex">
                         <ul className="menu menu-horizontal px-1">
-                            <li><a>Home</a></li>
-                            <li><a>Product</a></li>
-                            <li><a>AddProduct</a></li>
-                            <li><a>Order</a></li>
-                            <li><a>SigIn</a></li>
+                            <li><NavLink to="/">Home</NavLink></li>
+                            <li><NavLink to="/healthy">Product</NavLink></li>
+                            <li><NavLink to="/addProduct">AddProduct</NavLink></li>
+                            <li><NavLink to="/order">Order</NavLink></li>
+                            <li><NavLink to="/signIn">SigIn</NavLink></li>
                         </ul>
                     </div>
-                    <div className="drawer drawer-strat">
+                    <div className="drawer drawer-start">
                         <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
                         <div className="drawer-content">
-                            {/* Page content here */}
                             <label htmlFor="my-drawer-4" className="drawer-button btn btn-ghost lg:hidden"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-6 h-6 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path></svg></label>
-
                         </div>
                         <div className="drawer-side">
-                            <label htmlFor="my-drawer-4" aria-label="close sidebar" className="drawer-overlay"></label>
-                            <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
-                                <li><a>Home</a></li>
-                                <li><a>Product</a></li>
-                                <li><a>AddProduct</a></li>
-                                <li><a>Order</a></li>
-                                <li><a>SigIn</a></li>
+                            <label htmlFor="my-drawer-3" aria-label="close sidebar" className="drawer-overlay"></label>
+                            <ul className="menu p-4 w-80 min-h-full bg-base-200">
+                                <li><NavLink to="/" onClick={closeDrawer}>Home</NavLink></li>
+                                <li><NavLink to="/healthy" onClick={closeDrawer}>Product</NavLink></li>
+                                <li><NavLink to="/addProduct" onClick={closeDrawer}>AddProduct</NavLink></li>
+                                <li><NavLink to="/order" onClick={closeDrawer}>Order</NavLink></li>
+                                <li><NavLink to="/signIn" onClick={closeDrawer}>SigIn</NavLink></li>
                             </ul>
                         </div>
                     </div>
