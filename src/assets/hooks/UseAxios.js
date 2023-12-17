@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosurl=axios.create({
-  baseURL:"http://localhost:5000",
+  baseURL:"https://grosary-shope-server.vercel.app",
 })
 
 
