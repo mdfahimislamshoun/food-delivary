@@ -12,8 +12,12 @@ import Home from './component/Home';
 import SignIn from './login&reg/SignIn';
 import AddProduct from './component/AddProduct';
 import AuthProvider from './provider/AuthProvider';
+import Privet from './provider/Privet';
 import Order from './component/Order';
 import SignUp from './login&reg/SignUp';
+import OrderConfirm from './component/OrderConfirm';
+import Delivery from './component/delivery';
+import Private from './provider/Privet';
 const queryClint = new QueryClient()
 
 const router = createBrowserRouter([
@@ -27,15 +31,15 @@ const router = createBrowserRouter([
       },
       {
         path: '/healthy',
-        element: <Healthy></Healthy>
+        element: <Private><Healthy></Healthy></Private>
       },
       {
         path: '/addProduct',
-        element: <AddProduct></AddProduct>
+        element: <Private><AddProduct></AddProduct></Private>
       },
       {
         path: '/order',
-        element: <Order></Order>
+        element: <Private><Order></Order></Private>
       },
       {
         path:'/signIn',
@@ -44,6 +48,14 @@ const router = createBrowserRouter([
       {
         path:'/signUp',
         element: <SignUp></SignUp>
+      },
+      {
+        path:'/OrderConfirm',
+        element: <Private><OrderConfirm></OrderConfirm></Private>
+      },
+      {
+        path:'/myorder',
+        element:<Private><Delivery></Delivery></Private>
       },
     ]
   },

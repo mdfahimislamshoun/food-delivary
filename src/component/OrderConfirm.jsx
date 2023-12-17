@@ -1,9 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import UseAxios from "../assets/hooks/UseAxios";
 import Swal from "sweetalert2";
-import { AuthContext } from "../provider/AuthProvider";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import CheckOutForm from "./ChakOut";
 import { useContext } from "react";
-const Order = () => {
+import { AuthContext } from "../provider/AuthProvider";
+const stripePromise = loadStripe(import.meta.env.VITE_PAYMENT_KEY);
+
+const OrderConfirm = () => {
     const { user } = useContext(AuthContext);
     const email=user?.email;
     const axiosUrl = UseAxios();
@@ -16,20 +21,6 @@ const Order = () => {
             return res.data;
         },
     });
-
-    const update = (id) => {
-        const targetOrder = orders.filter(order => order._id === id);
-        const dstatus = targetOrder[0]?.status;
-        let status = ""
-        if (dstatus === "pending") {
-            const newStatus = "delivered";
-            status = newStatus;
-            console.log(status)
-        }
-        const pstatus = { status }
-        axiosUrl.patch(`/order/${id}`, pstatus);
-        refetch()
-    }
 
     const handelProductDelete = (id) => {
         const swalWithBootstrapButtons = Swal.mixin({
@@ -76,10 +67,14 @@ const Order = () => {
             });
     }
 
-
-
     return (
         <div>
+            <div className="mt-10 mb-5">
+                <Elements stripe={stripePromise}>
+                    <CheckOutForm />
+                </Elements>
+
+            </div>
             <div className="overflow-x-auto">
                 <table className="table table-zebra w-[90%] justify-center mx-auto">
                     {/* head */}
@@ -88,8 +83,6 @@ const Order = () => {
                             <th></th>
                             <th>Name</th>
                             <th>price</th>
-                            <th>status</th>
-                            <th>delivery</th>
                             <th>remove</th>
                         </tr>
                     </thead>
@@ -99,18 +92,13 @@ const Order = () => {
                                 <th>{index + 1}</th>
                                 <td>{p.name}</td>
                                 <td>{p.price}</td>
-                                <td>{p.status}</td>
                                 <td>
-                                    <button onClick={() => update(p._id)}
-                                        className="btn btn-ghost btn-lg">
-                                        delivered
-                                    </button>
-                                </td>
-                                <td>
+
                                     <button onClick={() => handelProductDelete(p._id)}
                                         className="btn btn-ghost btn-lg">
-                                        reject
+                                        remove
                                     </button>
+
                                 </td>
 
                             </tr>)
@@ -123,4 +111,4 @@ const Order = () => {
     );
 };
 
-export default Order;
+export default OrderConfirm;

@@ -118,6 +118,18 @@ const axiosUrl=UseAxios();
                 <form onSubmit={handelSignUp}>
                   <div className="form-control">
                     <label className="label">
+                      <span className="label-text">Name</span>
+                    </label>
+                    <input
+                      type="text"
+                      name="name"
+                      placeholder="name"
+                      className="input input-bordered"
+                      required
+                    />
+                  </div>
+                  <div className="form-control">
+                    <label className="label">
                       <span className="label-text">Email</span>
                     </label>
                     <input

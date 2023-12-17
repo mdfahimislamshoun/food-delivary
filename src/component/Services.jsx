@@ -12,10 +12,9 @@ const axiosUrl= UseAxios();
             return res.data;
         },
     });
-    console.log(services);
     return (
        <div className="mt-5 bg-white">
-        <h2 className="text-2xl font-medium text-center mb-5">Our services</h2>
+        <h2 className="text-2xl text-black font-medium text-center mb-5">Our services</h2>
         <div className="grid gap-3 grid-cols-1 md:grid-cols-3  ">
             {services.map((service)=><div key={service._id} className="card w-70  shadow-xl">
                 <figure className="px-10 pt-10">

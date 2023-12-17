@@ -6,9 +6,9 @@ function App() {
 
 
   return (
-  <div className="w-[99%] justify-center mx-auto bg-white pb-10">
+  <div className="w-[99%] justify-center mx-auto bg-white">
     <Navbar></Navbar>
-    <Outlet></Outlet>
+    <Outlet ></Outlet>
   </div>
   )
 }
